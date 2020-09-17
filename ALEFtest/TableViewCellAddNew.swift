@@ -23,7 +23,7 @@ class TableViewCellAddNew: UITableViewCell {
     func setupConfigure() {
         let button = UIButton(type: .contactAdd)
         addSubview(button)
-        button.frame = CGRect(x: bounds.width/2, y: 2, width: 40, height: 40)
+        button.frame = CGRect(x: bounds.width/2, y: 2, width: 44, height: 44)
         button.addTarget(self, action: #selector(newInfo), for: .touchUpInside)
     }
     

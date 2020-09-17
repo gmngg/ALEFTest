@@ -58,6 +58,7 @@ class ViewController: UIViewController {
         alert.addTextField { tf in tf.placeholder = "Age"
             tf.keyboardType = .numbersAndPunctuation
         }
+        
         let action = UIAlertAction(
             title: "Соханить", style: .default, handler: { [weak self] action in
                 guard let name = alert.textFields?.first?.text,
@@ -65,11 +66,12 @@ class ViewController: UIViewController {
                     else {
                         return
                 }
-                let fullInfo = "Имя: \(name), возраст: \(age)"
-                self?.family[section].info?.append(fullInfo)
+                self?.family[section].info?.append([FamilyInfo(fullName: name, age: age)])
                 self?.tableView.reloadData()
         })
+        let action2 = UIAlertAction(title: "Назад", style: .cancel, handler: .none)
         alert.addAction(action)
+        alert.addAction(action2)
         present(alert, animated: true, completion: nil)
     }
 }
@@ -98,7 +100,7 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
                     return UITableViewCell()
             }
             cell = TableViewCellInfo(style: .value1, reuseIdentifier: TableViewCellInfo.reuseId)
-            guard let info = family[indexPath.section].info?[indexPath.row] else {
+            guard let info = family[indexPath.section].info?[indexPath.row].first else {
                 return UITableViewCell()
             }
             cell.configure(info: info)
@@ -150,5 +152,11 @@ extension ViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return "Error"
         }
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        return textField.resignFirstResponder()
     }
 }

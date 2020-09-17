@@ -21,8 +21,16 @@ class TableViewCellInfo: UITableViewCell {
          fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(info: String) {
-        textLabel?.text = info
+    func configure(info: FamilyInfo) {
+        guard let name = info.fullName,
+            let age = info.age else {
+                return
+        }
+        textLabel?.text = "ФИО: \(name)"
+        detailTextLabel?.text = "Возраст: \(age)"
+        textLabel?.text = String(name.prefix(25))
+        textLabel?.lineBreakMode = .byWordWrapping
+        textLabel?.numberOfLines = 0
         
         let deleteButton = UIButton(type: .close)
         deleteButton.addTarget(self, action: #selector(deleteinfo), for: .touchUpInside)

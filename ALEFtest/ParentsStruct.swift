@@ -10,10 +10,10 @@ import Foundation
 
 struct Family {
     var name: String?
-    var info: [String]?
-    
-    init(name: String?, info: [String]?) {
-        self.name = name
-        self.info = info
-    }
+    var info: [[FamilyInfo]]?
+}
+
+struct FamilyInfo {
+    var fullName: String?
+    var age: String?
 }
